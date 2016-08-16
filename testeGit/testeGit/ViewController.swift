@@ -13,6 +13,7 @@ class ViewController: UIViewController {
     
     var variable1 = 0
     var variable2 = 1
+    var variable3 = 2
     
     
     override func viewDidLoad() {
