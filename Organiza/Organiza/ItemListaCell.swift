@@ -12,5 +12,4 @@ class ItemListaCell: UITableViewCell {
     
     
     @IBOutlet weak var textoTarefaLabel: UILabel!
-
 }

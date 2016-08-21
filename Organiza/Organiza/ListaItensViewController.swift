@@ -31,6 +31,8 @@ class ListaItensViewController: UITableViewController {
     }
     
     
+    //MARK: TableView Functions
+    
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return itens.count
     }
@@ -54,9 +56,10 @@ class ListaItensViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
-        if let cell = tableView.cellForRowAtIndexPath(indexPath) {
+        if let cell = tableView.cellForRowAtIndexPath(indexPath){
             let item = itens[indexPath.row]
             item.mudarMarcaItem()
+            
             
             marcarCelula(cell, item: item)
         }
@@ -65,7 +68,26 @@ class ListaItensViewController: UITableViewController {
         
     }
     
+    //Deleta itens da tabela, com swipe para a esquerda
+    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        
+        itens.removeAtIndex(indexPath.row)
+        
+        let indexPaths = [indexPath]
+        tableView.deleteRowsAtIndexPaths(indexPaths, withRowAnimation: .Automatic)
+    }
     
+    
+    //MARK: Segue Function
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "adicionaItem" {
+            let navigationController = segue.destinationViewController as! UINavigationController
+            let controller = navigationController.topViewController as! AdicionaTarefaViewController
+            controller.delegate = self
+        }
+    }
+    
+    //MARK: Custom Function
     func marcarCelula(cell: UITableViewCell, item: ItemLista) {
         if item.checked {
             cell.accessoryType = .Checkmark
@@ -74,4 +96,23 @@ class ListaItensViewController: UITableViewController {
         }
     }
 
+}
+
+extension ListaItensViewController:AdicionaTarefaDelegate{
+    
+    //MARK: Delegate Function
+    
+    func adicionadoTarefa(controller: AdicionaTarefaViewController, doItem item: ItemLista) {
+       
+        let indiceNovaLinha = itens.count
+        
+        itens.append(item)
+        
+        let indexPath = NSIndexPath(forRow: indiceNovaLinha, inSection: 0)
+        let indexPaths = [indexPath]
+        
+        tableView.insertRowsAtIndexPaths(indexPaths, withRowAnimation: .Automatic)
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+    
 }

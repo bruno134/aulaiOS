@@ -15,6 +15,7 @@
 		159307831D66893400F73C80 /* ListaItensViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 159307821D66893400F73C80 /* ListaItensViewController.swift */; };
 		159307851D668B2A00F73C80 /* ItemLista.swift in Sources */ = {isa = PBXBuildFile; fileRef = 159307841D668B2A00F73C80 /* ItemLista.swift */; };
 		159307871D668E7500F73C80 /* ItemListaCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 159307861D668E7500F73C80 /* ItemListaCell.swift */; };
+		159307891D68F63200F73C80 /* AdicionaTarefaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 159307881D68F63200F73C80 /* AdicionaTarefaViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		159307821D66893400F73C80 /* ListaItensViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListaItensViewController.swift; sourceTree = "<group>"; };
 		159307841D668B2A00F73C80 /* ItemLista.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemLista.swift; sourceTree = "<group>"; };
 		159307861D668E7500F73C80 /* ItemListaCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemListaCell.swift; sourceTree = "<group>"; };
+		159307881D68F63200F73C80 /* AdicionaTarefaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdicionaTarefaViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +66,7 @@
 				159307721D66872500F73C80 /* ViewController.swift */,
 				159307741D66872500F73C80 /* Main.storyboard */,
 				159307861D668E7500F73C80 /* ItemListaCell.swift */,
+				159307881D68F63200F73C80 /* AdicionaTarefaViewController.swift */,
 				159307841D668B2A00F73C80 /* ItemLista.swift */,
 				159307821D66893400F73C80 /* ListaItensViewController.swift */,
 				159307771D66872500F73C80 /* Assets.xcassets */,
@@ -148,6 +151,7 @@
 				159307731D66872500F73C80 /* ViewController.swift in Sources */,
 				159307871D668E7500F73C80 /* ItemListaCell.swift in Sources */,
 				159307831D66893400F73C80 /* ListaItensViewController.swift in Sources */,
+				159307891D68F63200F73C80 /* AdicionaTarefaViewController.swift in Sources */,
 				159307851D668B2A00F73C80 /* ItemLista.swift in Sources */,
 				159307711D66872500F73C80 /* AppDelegate.swift in Sources */,
 			);
@@ -299,6 +303,7 @@
 				159307811D66872500F73C80 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
