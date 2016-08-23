@@ -8,7 +8,7 @@
 
 import Foundation
 
-class ItemLista {
+class ItemLista:NSObject {
     
     var texto = ""
     var checked = false

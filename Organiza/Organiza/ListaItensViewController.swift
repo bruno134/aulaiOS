@@ -84,16 +84,33 @@ class ListaItensViewController: UITableViewController {
             let navigationController = segue.destinationViewController as! UINavigationController
             let controller = navigationController.topViewController as! AdicionaTarefaViewController
             controller.delegate = self
+        } else if segue.identifier == "EditaItem" {
+            let navigationController = segue.destinationViewController as! UINavigationController
+            let controller = navigationController.topViewController as! AdicionaTarefaViewController
+            controller.delegate = self
+            
+            if let indexPath = tableView.indexPathForCell( sender as! UITableViewCell) {
+                controller.itemParaEditar = itens[indexPath.row]
+            }
         }
     }
     
     //MARK: Custom Function
     func marcarCelula(cell: UITableViewCell, item: ItemLista) {
+        
+        let label = cell.viewWithTag(100) as! UILabel
+        
+        
         if item.checked {
-            cell.accessoryType = .Checkmark
+            label.text = "✓"
         } else {
-            cell.accessoryType = .None
+            label.text = ""
         }
+    }
+    
+    func setTextForCell(cell: UITableViewCell, doItem item: ItemLista) {
+        let label = cell.viewWithTag(1000) as! UILabel
+        label.text = item.texto
     }
 
 }
@@ -102,7 +119,7 @@ extension ListaItensViewController:AdicionaTarefaDelegate{
     
     //MARK: Delegate Function
     
-    func adicionadoTarefa(controller: AdicionaTarefaViewController, doItem item: ItemLista) {
+    func adicionadoTarefa(controller: AdicionaTarefaViewController, doItemAdicionado item: ItemLista) {
        
         let indiceNovaLinha = itens.count
         
@@ -115,4 +132,17 @@ extension ListaItensViewController:AdicionaTarefaDelegate{
         dismissViewControllerAnimated(true, completion: nil)
     }
     
+    
+    
+    func adicionadoTarefa(controller: AdicionaTarefaViewController, doItemEditado item: ItemLista) {
+        
+        if let index = itens.indexOf(item) {
+            let indexPath = NSIndexPath(forRow: index, inSection: 0)
+            if let cell = tableView.cellForRowAtIndexPath(indexPath) {
+                setTextForCell(cell, doItem: item)
+            }
+        }
+        dismissViewControllerAnimated(true, completion: nil)
+        
+    }
 }

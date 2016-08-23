@@ -9,7 +9,8 @@
 import UIKit
 
 protocol AdicionaTarefaDelegate: class {
-    func adicionadoTarefa(controller: AdicionaTarefaViewController, doItem item: ItemLista)
+    func adicionadoTarefa(controller: AdicionaTarefaViewController, doItemAdicionado item: ItemLista)
+    func adicionadoTarefa(controller: AdicionaTarefaViewController, doItemEditado item: ItemLista)
 }
 
 class AdicionaTarefaViewController: UITableViewController {
@@ -18,6 +19,15 @@ class AdicionaTarefaViewController: UITableViewController {
     @IBOutlet weak var salvarBarButtonItem: UIBarButtonItem!
     
     weak var delegate:AdicionaTarefaDelegate?
+    var itemParaEditar: ItemLista?
+    
+    override func viewDidLoad() {
+        if let item = itemParaEditar {
+            title = "Editar Item"
+            nomeTarefaTextField.text = item.texto
+            salvarBarButtonItem.enabled = true
+        }
+    }
     
     override func viewWillAppear(animated: Bool) {
         
@@ -27,10 +37,16 @@ class AdicionaTarefaViewController: UITableViewController {
     
     @IBAction func salvarTarefa() {
         if let delegate = delegate {
-            let item = ItemLista()
-            item.texto = nomeTarefaTextField.text!
-            item.checked = false
-            delegate.adicionadoTarefa(self, doItem: item)
+            
+            if let item = itemParaEditar {
+                item.texto = nomeTarefaTextField.text!
+                delegate.adicionadoTarefa(self, doItemEditado: item)
+            }else{
+                let item = ItemLista()
+                item.texto = nomeTarefaTextField.text!
+                item.checked = false
+                delegate.adicionadoTarefa(self, doItemAdicionado: item)
+            }
         }
     }
     

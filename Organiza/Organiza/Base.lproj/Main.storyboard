@@ -15,31 +15,44 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="checkmark" indentationWidth="10" reuseIdentifier="ItemListaCell" id="8yl-QW-clI" customClass="ItemListaCell" customModule="Organiza" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="detailDisclosureButton" indentationWidth="10" reuseIdentifier="ItemListaCell" id="8yl-QW-clI" customClass="ItemListaCell" customModule="Organiza" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="92" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="8yl-QW-clI" id="I6V-Ok-dRW">
-                                    <rect key="frame" x="0.0" y="0.0" width="561" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="533" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m94-6p-jQs">
-                                            <rect key="frame" x="8" y="11" width="514" height="21"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" tag="1000" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m94-6p-jQs">
+                                            <rect key="frame" x="38" y="11" width="484" height="21"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="21" id="gcf-xh-7pu"/>
+                                                <constraint firstAttribute="height" constant="21" id="DpR-iu-lHc"/>
+                                                <constraint firstAttribute="width" constant="484" id="ndc-he-38f"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="L" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fe1-l8-24g">
+                                            <rect key="frame" x="5" y="8" width="27" height="27"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="27" id="9Zj-5p-9jg"/>
+                                                <constraint firstAttribute="height" constant="27" id="zbd-bZ-9LK"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="m94-6p-jQs" firstAttribute="leading" secondItem="I6V-Ok-dRW" secondAttribute="leading" constant="8" id="81P-MG-1GB"/>
-                                        <constraint firstAttribute="trailing" secondItem="m94-6p-jQs" secondAttribute="trailing" constant="39" id="WfO-FS-MN6"/>
-                                        <constraint firstAttribute="bottom" secondItem="m94-6p-jQs" secondAttribute="bottom" constant="11" id="pMa-hX-ryg"/>
+                                        <constraint firstItem="Fe1-l8-24g" firstAttribute="leading" secondItem="I6V-Ok-dRW" secondAttribute="leading" constant="5" id="L6m-lO-AYC"/>
+                                        <constraint firstAttribute="bottom" secondItem="Fe1-l8-24g" secondAttribute="bottom" constant="8" id="TOi-uE-kct"/>
+                                        <constraint firstItem="m94-6p-jQs" firstAttribute="leading" secondItem="Fe1-l8-24g" secondAttribute="trailing" constant="6" id="dbi-JK-XHo"/>
+                                        <constraint firstAttribute="bottom" secondItem="m94-6p-jQs" secondAttribute="bottom" constant="11" id="teg-zS-dIn"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="textoTarefaLabel" destination="m94-6p-jQs" id="WOe-OD-Wwv"/>
+                                    <segue destination="G59-Pf-ltx" kind="presentation" identifier="EditaItem" trigger="accessoryAction" id="U6U-M5-ELD"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -163,4 +176,7 @@
             <point key="canvasLocation" x="2122" y="365"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="U6U-M5-ELD"/>
+    </inferredMetricsTieBreakers>
 </document>
