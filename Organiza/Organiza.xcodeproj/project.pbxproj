@@ -16,6 +16,10 @@
 		159307851D668B2A00F73C80 /* ItemLista.swift in Sources */ = {isa = PBXBuildFile; fileRef = 159307841D668B2A00F73C80 /* ItemLista.swift */; };
 		159307871D668E7500F73C80 /* ItemListaCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 159307861D668E7500F73C80 /* ItemListaCell.swift */; };
 		159307891D68F63200F73C80 /* AdicionaTarefaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 159307881D68F63200F73C80 /* AdicionaTarefaViewController.swift */; };
+		AC17FC5A1D720BD5006D73DB /* AdiconarListaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC17FC591D720BD5006D73DB /* AdiconarListaViewController.swift */; };
+		AC17FC5C1D721B7B006D73DB /* ItemPastaLista.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC17FC5B1D721B7B006D73DB /* ItemPastaLista.swift */; };
+		AC81D9DC1D721F24000F86C6 /* EditaListaIconeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC81D9DB1D721F24000F86C6 /* EditaListaIconeTableViewController.swift */; };
+		AC81D9E01D72282B000F86C6 /* ItemIconePastaListaCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC81D9DF1D72282B000F86C6 /* ItemIconePastaListaCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +34,10 @@
 		159307841D668B2A00F73C80 /* ItemLista.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemLista.swift; sourceTree = "<group>"; };
 		159307861D668E7500F73C80 /* ItemListaCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemListaCell.swift; sourceTree = "<group>"; };
 		159307881D68F63200F73C80 /* AdicionaTarefaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdicionaTarefaViewController.swift; sourceTree = "<group>"; };
+		AC17FC591D720BD5006D73DB /* AdiconarListaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdiconarListaViewController.swift; sourceTree = "<group>"; };
+		AC17FC5B1D721B7B006D73DB /* ItemPastaLista.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemPastaLista.swift; sourceTree = "<group>"; };
+		AC81D9DB1D721F24000F86C6 /* EditaListaIconeTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditaListaIconeTableViewController.swift; sourceTree = "<group>"; };
+		AC81D9DF1D72282B000F86C6 /* ItemIconePastaListaCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemIconePastaListaCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,16 +70,20 @@
 		1593076F1D66872500F73C80 /* Organiza */ = {
 			isa = PBXGroup;
 			children = (
+				AC81D9DF1D72282B000F86C6 /* ItemIconePastaListaCell.swift */,
 				159307701D66872500F73C80 /* AppDelegate.swift */,
 				159307721D66872500F73C80 /* ViewController.swift */,
-				159307741D66872500F73C80 /* Main.storyboard */,
 				159307861D668E7500F73C80 /* ItemListaCell.swift */,
+				AC17FC591D720BD5006D73DB /* AdiconarListaViewController.swift */,
 				159307881D68F63200F73C80 /* AdicionaTarefaViewController.swift */,
 				159307841D668B2A00F73C80 /* ItemLista.swift */,
 				159307821D66893400F73C80 /* ListaItensViewController.swift */,
 				159307771D66872500F73C80 /* Assets.xcassets */,
-				159307791D66872500F73C80 /* LaunchScreen.storyboard */,
 				1593077C1D66872500F73C80 /* Info.plist */,
+				AC17FC5B1D721B7B006D73DB /* ItemPastaLista.swift */,
+				AC81D9DB1D721F24000F86C6 /* EditaListaIconeTableViewController.swift */,
+				159307791D66872500F73C80 /* LaunchScreen.storyboard */,
+				159307741D66872500F73C80 /* Main.storyboard */,
 			);
 			path = Organiza;
 			sourceTree = "<group>";
@@ -148,9 +160,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AC17FC5A1D720BD5006D73DB /* AdiconarListaViewController.swift in Sources */,
+				AC81D9DC1D721F24000F86C6 /* EditaListaIconeTableViewController.swift in Sources */,
 				159307731D66872500F73C80 /* ViewController.swift in Sources */,
 				159307871D668E7500F73C80 /* ItemListaCell.swift in Sources */,
 				159307831D66893400F73C80 /* ListaItensViewController.swift in Sources */,
+				AC81D9E01D72282B000F86C6 /* ItemIconePastaListaCell.swift in Sources */,
+				AC17FC5C1D721B7B006D73DB /* ItemPastaLista.swift in Sources */,
 				159307891D68F63200F73C80 /* AdicionaTarefaViewController.swift in Sources */,
 				159307851D668B2A00F73C80 /* ItemLista.swift in Sources */,
 				159307711D66872500F73C80 /* AppDelegate.swift in Sources */,
