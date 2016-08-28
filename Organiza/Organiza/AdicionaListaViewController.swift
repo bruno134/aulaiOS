@@ -54,8 +54,8 @@ class AdicionaListaViewController: UITableViewController {
             novaListaTarefa.nomeImagem = nomeIcone
             Lista.salvarLista(managedObjectContext, lista: novaListaTarefa)
         }
-        
-        dismissViewControllerAnimated(true, completion: { self.delegate?.atualizaTabelaLista()})
+        self.delegate?.atualizaTabelaLista()
+        dismissViewControllerAnimated(true, completion:nil)
     }
     
     @IBAction func cancelar(sender: UIBarButtonItem) {

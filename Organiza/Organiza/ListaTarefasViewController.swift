@@ -48,6 +48,7 @@ class ListaTarefasViewController: UITableViewController, UINavigationControllerD
         
         celula.textLabel?.text = lista.nome
         celula.accessoryType = .DetailDisclosureButton
+        celula.imageView?.image = UIImage(named: lista.caminhoImagem!)
         
         return celula
         
@@ -58,6 +59,7 @@ class ListaTarefasViewController: UITableViewController, UINavigationControllerD
         let controller = navigation.viewControllers[0] as! AdicionaListaViewController
         
         controller.managedObjectContext = managedObjectContext
+        controller.delegate = self
     }
     
     
@@ -66,6 +68,7 @@ class ListaTarefasViewController: UITableViewController, UINavigationControllerD
 extension ListaTarefasViewController: AdicionaListaViewControllerDelegate{
     
     func atualizaTabelaLista(){
+        listasTarefa = Lista.retornaListas(managedObjectContext)
         tableView.reloadData()
     }
 

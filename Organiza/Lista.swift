@@ -69,7 +69,7 @@ class Lista: NSManagedObject {
         
         do {
             try context.save()
-            indiceListaTarefa = lista.id
+            indiceListaTarefa = novaLista.id
         } catch {
             fatalCoreDataError(error)
         }
