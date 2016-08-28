@@ -55,9 +55,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
+        //Verifica se o indice das listas esta zerado e atribui o valor 1.
+        ajustePrimeiroAcesso()
+        
         let navigationController = window!.rootViewController as! UINavigationController
         
-        let controller = navigationController.viewControllers[0] as! ListaItensViewController;
+//        let controller = navigationController.viewControllers[0] as! ListaItensViewController;
+        
+         let controller = navigationController.viewControllers[0] as! ListaTarefasViewController;
         
         controller.managedObjectContext = managedObjectContext;
         return true

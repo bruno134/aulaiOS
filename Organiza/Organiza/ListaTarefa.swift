@@ -1,5 +1,5 @@
 //
-//  Tarefa.swift
+//  ListaTarefa.swift
 //  Organiza
 //
 //  Created by BRUNO DANIEL NOGUEIRA on 28/08/16.
@@ -7,10 +7,13 @@
 //
 
 import Foundation
-import CoreData
 
 
-class Tarefa: NSManagedObject {
 
-   
+class ListaTarefa:NSObject{
+    
+    var id:Int = 0
+    var nomeLista:String = ""
+    var nomeImagem:String = ""
+    
 }

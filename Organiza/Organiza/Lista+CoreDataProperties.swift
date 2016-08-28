@@ -16,7 +16,7 @@ extension Lista {
 
     @NSManaged var nome: String
     @NSManaged var caminhoImagem: String?
-    @NSManaged var id: Int64
+    @NSManaged var id: Int
     @NSManaged var tarefas: NSOrderedSet?
 
 }
