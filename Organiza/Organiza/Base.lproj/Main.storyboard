@@ -9,7 +9,7 @@
         <!--Organiza-->
         <scene sceneID="IqW-96-9hP">
             <objects>
-                <tableViewController id="gGG-ZJ-emC" customClass="ListaItensViewController" customModule="Organiza" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="ListaItensViewController" id="gGG-ZJ-emC" customClass="ListaItensViewController" customModule="Organiza" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="oMY-Vx-lcf">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -76,7 +76,7 @@
         <!--Adicionar Tarefa-->
         <scene sceneID="j3w-gD-h7J">
             <objects>
-                <tableViewController id="wSg-Jp-uf4" customClass="AdicionaTarefaViewController" customModule="Organiza" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="adicionaTarefa" id="wSg-Jp-uf4" customClass="AdicionaTarefaViewController" customModule="Organiza" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="ghV-jI-RLx">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
