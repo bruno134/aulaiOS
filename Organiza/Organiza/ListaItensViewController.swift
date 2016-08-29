@@ -11,19 +11,17 @@ import CoreData
 
 class ListaItensViewController: UITableViewController {
     
-    var itens:[ItemLista]
+    var itens:[ItemLista] = []
     var managedObjectContext: NSManagedObjectContext!
-    
-    required init?(coder aDecoder: NSCoder) {
-        itens = [ItemLista]()
-        super.init(coder: aDecoder)
-    }
-    
+    var codigoListaSelecionada: Int?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if let listaTarefa = Lista.retornaLista(managedObjectContext, doCodigo: 1)?.tarefas{
+        itens = [ItemLista]()
+        
+        if let codigoLista = codigoListaSelecionada,
+           let listaTarefa = Lista.retornaLista(managedObjectContext, doCodigo: codigoLista)?.tarefas{
             
             for itemLista in listaTarefa{
                 
@@ -34,22 +32,7 @@ class ListaItensViewController: UITableViewController {
                 linha.checked = tarefa.concluido
                 itens.append(linha)
             }
-        }else{
-
-            let lista = NSEntityDescription.insertNewObjectForEntityForName("Lista", inManagedObjectContext: managedObjectContext) as! Lista
-
-            lista.id = 1
-            lista.nome = "Lista Inicial "
-            lista.tarefas = nil
-            lista.caminhoImagem = "testeImagem"
-
-            do {
-                try managedObjectContext.save()
-            } catch {
-                fatalCoreDataError(error)
-            }
         }
-
     }
     
     

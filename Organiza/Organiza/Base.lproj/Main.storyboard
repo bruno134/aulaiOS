@@ -159,6 +159,9 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <segue destination="LWi-Qg-n3u" kind="show" identifier="ListaItensViewController" id="dPM-Ca-kIB"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WNk-qV-smi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
