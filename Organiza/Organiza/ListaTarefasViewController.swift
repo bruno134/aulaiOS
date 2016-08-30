@@ -57,27 +57,25 @@ class ListaTarefasViewController: UITableViewController, UINavigationControllerD
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
           let listaSelecionada = listasTarefa[indexPath.row]
-          let idLista = listaSelecionada.id
+        
 
-          performSegueWithIdentifier("ListaItensViewController", sender: idLista)
+          self.performSegueWithIdentifier("ListaItensViewController", sender: listaSelecionada)
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
        
-        let navigation = segue.destinationViewController as! UINavigationController
+        
         
         if segue.identifier == "ListaItensViewController" {
         
-            let controller = navigation.viewControllers[0] as! ListaItensViewController
+        
+            let controller = segue.destinationViewController as! ListaItensViewController
                 controller.managedObjectContext = managedObjectContext
-            
-            let idLista = sender as! Int
-            
-            controller.codigoListaSelecionada = idLista
+                controller.listaSelecionada = sender as! Lista!
             
         }else{
             
-        
+        let navigation = segue.destinationViewController as! UINavigationController
         let controller = navigation.viewControllers[0] as! AdicionaListaViewController
         
         controller.managedObjectContext = managedObjectContext

@@ -9,6 +9,7 @@
 import UIKit
 
 protocol SeletorIconeDelegate: class {
+    
     func selecionaIcone(icone: String)
 }
 
@@ -37,6 +38,7 @@ class SeletorIconeTableViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        
         let cell = tableView.dequeueReusableCellWithIdentifier("Icone", forIndexPath: indexPath)
         
         let iconName = icones[indexPath.row]
@@ -47,6 +49,7 @@ class SeletorIconeTableViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
         if let delegate = delegate {
             let nomeIcone = icones[indexPath.row]
             delegate.selecionaIcone(nomeIcone)

@@ -12,5 +12,28 @@ import CoreData
 
 class Tarefa: NSManagedObject {
 
-   
+    class func salvar(itemLista:ItemLista, daLista lista:Lista, context:NSManagedObjectContext){
+        
+        let tarefa = NSEntityDescription.insertNewObjectForEntityForName("Tarefa", inManagedObjectContext: context) as! Tarefa
+        
+        
+        tarefa.texto = itemLista.texto
+        tarefa.concluido = itemLista.checked
+        tarefa.dataLembrete = itemLista.dataLembrete
+        tarefa.lembrete = itemLista.lembrete
+        
+        let tarefas = lista.tarefas?.mutableCopy() as! NSMutableOrderedSet
+        
+        tarefas.addObject(tarefa)
+        
+        lista.tarefas = tarefas.copy() as? NSOrderedSet
+        
+        do{
+            try context.save()
+        }catch{
+            print("Erro ao salvar tarefas: \(error)")
+        }
+    }
 }
+
+    

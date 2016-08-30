@@ -13,26 +13,12 @@ class ListaItensViewController: UITableViewController {
     
     var itens:[ItemLista] = []
     var managedObjectContext: NSManagedObjectContext!
-    var codigoListaSelecionada: Int?
+   
+    var listaSelecionada:Lista?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        itens = [ItemLista]()
-        
-        if let codigoLista = codigoListaSelecionada,
-           let listaTarefa = Lista.retornaLista(managedObjectContext, doCodigo: codigoLista)?.tarefas{
-            
-            for itemLista in listaTarefa{
-                
-                let tarefa = itemLista as! Tarefa
-                
-                let linha = ItemLista()
-                linha.texto = tarefa.texto
-                linha.checked = tarefa.concluido
-                itens.append(linha)
-            }
-        }
+        preencheTabela()
     }
     
     
@@ -90,6 +76,8 @@ class ListaItensViewController: UITableViewController {
             let controller = navigationController.topViewController as! AdicionaTarefaViewController
             controller.delegate = self
             controller.managedObjectContext = managedObjectContext
+            controller.listaSelecionada = self.listaSelecionada
+            
         } else if segue.identifier == "EditaItem" {
             let navigationController = segue.destinationViewController as! UINavigationController
             let controller = navigationController.topViewController as! AdicionaTarefaViewController
@@ -119,6 +107,25 @@ class ListaItensViewController: UITableViewController {
         let label = cell.viewWithTag(1000) as! UILabel
         label.text = item.texto
     }
+    
+    func preencheTabela(){
+        
+        itens = [ItemLista]()
+        
+        if let lista = listaSelecionada,
+            let listaTarefa = Lista.retornaLista(managedObjectContext, doCodigo: lista.id)?.tarefas{
+            
+            for itemLista in listaTarefa{
+                
+                let tarefa = itemLista as! Tarefa
+                
+                let linha = ItemLista()
+                linha.texto = tarefa.texto
+                linha.checked = tarefa.concluido
+                itens.append(linha)
+            }
+        }
+    }
 }
 
 extension ListaItensViewController:AdicionaTarefaDelegate{
@@ -126,15 +133,9 @@ extension ListaItensViewController:AdicionaTarefaDelegate{
     //MARK: Delegate Function
     
     func adicionadoTarefa(controller: AdicionaTarefaViewController, doItemAdicionado item: ItemLista) {
-       
-        let indiceNovaLinha = itens.count
         
-        itens.append(item)
-        
-        let indexPath = NSIndexPath(forRow: indiceNovaLinha, inSection: 0)
-        let indexPaths = [indexPath]
-        
-        tableView.insertRowsAtIndexPaths(indexPaths, withRowAnimation: .Automatic)
+        preencheTabela()
+        tableView.reloadData()
         dismissViewControllerAnimated(true, completion: nil)
     }
     
