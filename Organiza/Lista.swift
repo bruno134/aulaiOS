@@ -76,4 +76,18 @@ class Lista: NSManagedObject {
 
     }
     
+    class func excluirLista(lista:Lista, context:NSManagedObjectContext){
+        
+        do{            
+            context.deleteObject(lista)
+            
+            try context.save()
+            
+        }catch{
+            fatalCoreDataError(error)
+        }
+        
+    }
+
+    
 }

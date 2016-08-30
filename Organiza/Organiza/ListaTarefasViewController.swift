@@ -18,7 +18,7 @@ class ListaTarefasViewController: UITableViewController, UINavigationControllerD
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        listasTarefa = Lista.retornaListas(managedObjectContext)
+        preencheTabela()
     }
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -82,6 +82,21 @@ class ListaTarefasViewController: UITableViewController, UINavigationControllerD
         controller.delegate = self
         }
         
+    }
+    
+    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        
+        if editingStyle == UITableViewCellEditingStyle.Delete {
+           Lista.excluirLista(listasTarefa[indexPath.row], context: managedObjectContext)
+        }
+        
+        preencheTabela()
+        tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+        
+    }
+    
+    func preencheTabela(){
+        listasTarefa = Lista.retornaListas(managedObjectContext)
     }
     
 }

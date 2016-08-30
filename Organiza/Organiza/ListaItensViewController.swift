@@ -18,6 +18,11 @@ class ListaItensViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if let lista = listaSelecionada{
+            navigationItem.title = lista.nome
+        }
+        
         preencheTabela()
     }
     
@@ -62,11 +67,17 @@ class ListaItensViewController: UITableViewController {
     //Deleta itens da tabela, com swipe para a esquerda
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         
-        itens.removeAtIndex(indexPath.row)
         
-        let indexPaths = [indexPath]
-        tableView.deleteRowsAtIndexPaths(indexPaths, withRowAnimation: .Automatic)
+        if editingStyle == UITableViewCellEditingStyle.Delete {
+        
+            let tarefaParaRemover = listaSelecionada?.tarefas![indexPath.row] as! Tarefa
+            Tarefa.excluir(tarefaParaRemover, daLista: listaSelecionada!, context: managedObjectContext)
+        }
+        
+       preencheTabela()
+       tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
     }
+    
     
     
     //MARK: Segue Function
@@ -149,9 +160,6 @@ extension ListaItensViewController:AdicionaTarefaDelegate{
                 setTextForCell(cell, doItem: item)
             }
         }
-        
-       
-        
         
         dismissViewControllerAnimated(true, completion: nil)
         

@@ -34,6 +34,27 @@ class Tarefa: NSManagedObject {
             print("Erro ao salvar tarefas: \(error)")
         }
     }
+    
+    class func excluir(tarefa:Tarefa, daLista lista:Lista, context:NSManagedObjectContext){
+        
+        do{
+            let tarefaParaRemover = tarefa
+            let tarefas = lista.tarefas?.mutableCopy() as! NSMutableOrderedSet
+            let index = tarefas.indexOfObject(tarefaParaRemover)
+            
+            tarefas.removeObject(index)
+            
+            lista.tarefas = (tarefas.copy() as! NSOrderedSet)
+            
+            context.deleteObject(tarefaParaRemover)
+            
+            try context.save()
+            
+        }catch{
+            fatalCoreDataError(error)
+        }
+
+    }
 }
 
     
