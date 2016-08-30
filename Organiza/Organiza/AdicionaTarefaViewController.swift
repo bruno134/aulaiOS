@@ -17,14 +17,14 @@ class AdicionaTarefaViewController: UITableViewController {
 
     @IBOutlet weak var nomeTarefaTextField: UITextField!
     @IBOutlet weak var salvarBarButtonItem: UIBarButtonItem!
-    @IBOutlet weak var switchAviso: UISwitch!
+    @IBOutlet weak var botaoAtivaAviso: UISwitch!
     @IBOutlet weak var lblDataAviso: UILabel!
     
     weak var delegate:AdicionaTarefaDelegate?
     var itemParaEditar: ItemLista?
     
     var _calendarioVisivel: Bool!
-    var _dataAtual : NSDate!
+    var _dataSelecionada : NSDate!
     
     
     override func viewDidLoad() {
@@ -36,10 +36,14 @@ class AdicionaTarefaViewController: UITableViewController {
             nomeTarefaTextField.text = item.texto
             salvarBarButtonItem.enabled = true
             _calendarioVisivel = false
-            //_dataAtual = item.dataAviso
+            _dataSelecionada = item.dataAviso
+            botaoAtivaAviso.on = item.deveAvisar
+            
         } else {
             _calendarioVisivel = false
-            _dataAtual = NSDate()
+            _dataSelecionada = NSDate()
+            botaoAtivaAviso.on = false
+            salvarBarButtonItem.enabled = false
         }
     }
     
@@ -50,15 +54,27 @@ class AdicionaTarefaViewController: UITableViewController {
     }
     
     @IBAction func salvarTarefa() {
+        
         if let delegate = delegate {
             
             if let item = itemParaEditar {
                 item.texto = nomeTarefaTextField.text!
+                item.dataAviso = _dataSelecionada
+                item.deveAvisar = botaoAtivaAviso.on
+                item.agendarNotificacao()
+                
+                view.endEditing(true)
+                
                 delegate.adicionadoTarefa(self, doItemEditado: item)
             }else{
                 let item = ItemLista()
                 item.texto = nomeTarefaTextField.text!
+                item.deveAvisar = botaoAtivaAviso.on
                 item.checked = false
+                item.dataAviso = _dataSelecionada
+                
+                view.endEditing(true)
+                
                 delegate.adicionadoTarefa(self, doItemAdicionado: item)
             }
         }
@@ -71,10 +87,10 @@ class AdicionaTarefaViewController: UITableViewController {
     @IBAction func ativaDesativaAviso(botaoAviso: UISwitch) {
         
         if (botaoAviso.on) {
-            // TODO:
+            exibirCalendario()
             return
         }
-        lblDataAviso.text = "desligado"
+        escondeCalendario()
     }
     
     override func tableView(tableView: UITableView, willSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath? {
@@ -90,7 +106,6 @@ class AdicionaTarefaViewController: UITableViewController {
         
         if (indexPath.section == 1 && indexPath.row == 2){
             
-            //let celulaCalendario: UITableViewCell = self.tableView.dequeueReusableCellWithIdentifier("celulaCalendario")!
             let celulaCalendario: UITableViewCell =
                 UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "celulaCalendario")
             
@@ -113,7 +128,7 @@ class AdicionaTarefaViewController: UITableViewController {
     
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        print("passe 2")
+        
         self.tableView.deselectRowAtIndexPath(indexPath, animated: true)
         
         if (indexPath.section == 1 && indexPath.row == 1) {
@@ -161,10 +176,14 @@ class AdicionaTarefaViewController: UITableViewController {
         }
     }
     
+    func textFieldDidBeginEditing(textField: UITextField) {
+        escondeCalendario()
+    }
+    
     
     func dataAlterada(calendario: UIDatePicker) -> Void {
         
-        _dataAtual = calendario.date
+        _dataSelecionada = calendario.date
         self.atualizaCampoData()
         
     }
@@ -174,7 +193,7 @@ class AdicionaTarefaViewController: UITableViewController {
         let formatacaoData: NSDateFormatter = NSDateFormatter()
         formatacaoData.dateStyle = NSDateFormatterStyle.MediumStyle
         formatacaoData.timeStyle = NSDateFormatterStyle.ShortStyle
-        self.lblDataAviso.text = formatacaoData.stringFromDate(_dataAtual)
+        self.lblDataAviso.text = formatacaoData.stringFromDate(_dataSelecionada)
     }
     
     func exibirCalendario() -> Void {
@@ -196,7 +215,7 @@ class AdicionaTarefaViewController: UITableViewController {
         let linhaCalendario: UITableViewCell = self.tableView.cellForRowAtIndexPath(indiceCalendario)!
         let calendario: UIDatePicker = linhaCalendario.viewWithTag(100) as! UIDatePicker
         
-        calendario.setDate(_dataAtual, animated: false)
+        calendario.setDate(_dataSelecionada, animated: false)
         
     }
     
