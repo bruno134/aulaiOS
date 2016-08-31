@@ -224,22 +224,22 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Adicionar Tarefa" id="9lV-HS-sJq">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="zmm-CL-SbE">
+                        <barButtonItem key="leftBarButtonItem" title="Cancelar" id="zmm-CL-SbE">
                             <connections>
                                 <action selector="cancelarTarefa" destination="wSg-Jp-uf4" id="qU6-1a-FLN"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" enabled="NO" systemItem="done" id="fWe-71-Ny8">
+                        <barButtonItem key="rightBarButtonItem" enabled="NO" title="Adicionar" id="fWe-71-Ny8">
                             <connections>
                                 <action selector="salvarTarefa" destination="wSg-Jp-uf4" id="WrU-tM-ZFu"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="botaoAtivaAviso" destination="63W-Xo-bpF" id="BTN-YT-BVf"/>
                         <outlet property="lblDataAviso" destination="TkO-0b-DlP" id="ILw-EJ-zPY"/>
                         <outlet property="nomeTarefaTextField" destination="eMs-ag-Rbs" id="oxE-uA-XGy"/>
                         <outlet property="salvarBarButtonItem" destination="fWe-71-Ny8" id="V2v-uN-bpN"/>
-                        <outlet property="switchAviso" destination="63W-Xo-bpF" id="CDF-EB-Gzs"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0Wa-pz-94g" userLabel="First Responder" sceneMemberID="firstResponder"/>
