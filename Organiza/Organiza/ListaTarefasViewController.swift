@@ -80,8 +80,8 @@ class ListaTarefasViewController: UITableViewController, UINavigationControllerD
                 controller.listaSelecionada = sender as! Lista!
                 controller.delegate  = self
             
-        }else{
-            
+        }else if segue.identifier == "editaItem" {
+        
             let navigation = segue.destinationViewController as! UINavigationController
             let controller = navigation.viewControllers[0] as! AdicionaListaViewController
             
@@ -95,6 +95,16 @@ class ListaTarefasViewController: UITableViewController, UINavigationControllerD
             listaTarefa.nomeImagem = lista.caminhoImagem!
             
             controller.listaParaEditar = listaTarefa
+
+        
+        
+        }else{
+    
+            let navigation = segue.destinationViewController as! UINavigationController
+            let controller = navigation.viewControllers[0] as! AdicionaListaViewController
+            
+            controller.managedObjectContext = managedObjectContext
+            controller.delegate = self
                         
         }
         

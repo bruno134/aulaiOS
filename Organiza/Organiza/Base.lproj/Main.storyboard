@@ -171,9 +171,6 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
-                                <connections>
-                                    <segue destination="dnk-zX-2h2" kind="presentation" identifier="editaItem" id="RG2-UK-9Jq"/>
-                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -190,6 +187,7 @@
                     </navigationItem>
                     <connections>
                         <segue destination="gGG-ZJ-emC" kind="show" identifier="ListaItensViewController" id="2bf-ka-JP7"/>
+                        <segue destination="dnk-zX-2h2" kind="presentation" identifier="editaItem" id="3Y3-aE-zxj"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WNk-qV-smi" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -391,6 +389,6 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="U6U-M5-ELD"/>
-        <segue reference="RG2-UK-9Jq"/>
+        <segue reference="CrQ-B1-qT2"/>
     </inferredMetricsTieBreakers>
 </document>
