@@ -18,16 +18,18 @@ class SeletorIconeTableViewController: UITableViewController {
     var delegate: SeletorIconeDelegate?
     
     let icones = [
-        "No Icon",
-        "Appointments",
-        "Birthdays",
-        "Chores",
-        "Drinks",
-        "Folder",
-        "Groceries",
-        "Inbox",
-        "Photos",
-        "Trips" ]
+        ("No Icon","Sem Ícone"),
+        ("Appointments","Compromisso"),
+        ("Birthdays","Aniversario"),
+        ("Chores","Atividades"),
+        ("Drinks","Bebidas"),
+        ("Folder","Pasta"),
+        ("Groceries","Supermercado"),
+        ("Inbox","Entrada"),
+        ("Photos","Fotos"),
+        ("Trips","Viagem") ]
+    
+   
     
     override func viewDidLoad() {
         navigationController?.title = "Selecione Ícone"
@@ -42,8 +44,8 @@ class SeletorIconeTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier("Icone", forIndexPath: indexPath)
         
         let iconName = icones[indexPath.row]
-        cell.textLabel!.text = iconName
-        cell.imageView!.image = UIImage(named: iconName)
+        cell.textLabel!.text = iconName.1
+        cell.imageView!.image = UIImage(named: iconName.0)
         
         return cell
     }
@@ -52,7 +54,7 @@ class SeletorIconeTableViewController: UITableViewController {
         
         if let delegate = delegate {
             let nomeIcone = icones[indexPath.row]
-            delegate.selecionaIcone(nomeIcone)
+            delegate.selecionaIcone(nomeIcone.0)
         }
     }
 

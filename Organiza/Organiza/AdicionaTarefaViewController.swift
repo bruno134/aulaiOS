@@ -31,6 +31,7 @@ class AdicionaTarefaViewController: UITableViewController {
             title = "Editar Item"
             nomeTarefaTextField.text = item.texto
             salvarBarButtonItem.enabled = true
+            salvarBarButtonItem.title = "Salvar"
         }
         
     }

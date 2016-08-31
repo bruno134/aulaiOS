@@ -32,6 +32,7 @@ class AdicionaListaViewController: UITableViewController {
             title = "Editar Lista Tarefa"
             nomeTarefaTextField.text = listaTarefa.nomeLista
             adicionaBarButton.enabled = true
+            adicionaBarButton.title = "Salvar"
             nomeIcone = listaTarefa.nomeImagem
             
         }
