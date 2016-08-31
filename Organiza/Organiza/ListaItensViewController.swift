@@ -7,27 +7,23 @@
 //
 
 import UIKit
+import CoreData
 
 class ListaItensViewController: UITableViewController {
     
-    var itens:[ItemLista]
-    
-    required init?(coder aDecoder: NSCoder) {
-        itens = [ItemLista]()
-        
-        for x in 1...10{
-            let linha = ItemLista()
-            linha.texto = "Tarefa " + String(x)
-            linha.checked = false
-            itens.append(linha)
-        }
-        
-        super.init(coder: aDecoder)
-    }
-    
+    var itens:[ItemLista] = []
+    var managedObjectContext: NSManagedObjectContext!
+    var delegate:ListaTarefasViewController?
+    var listaSelecionada:Lista!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if let lista = listaSelecionada{
+            navigationItem.title = lista.nome
+        }
+        
+        preencheTabela()
     }
     
     
@@ -62,6 +58,14 @@ class ListaItensViewController: UITableViewController {
             
             
             marcarCelula(cell, item: item)
+            
+            let tarefa = listaSelecionada.tarefas![indexPath.row]
+        
+            tarefa.setValue(item.checked, forKey: "concluido")
+            
+            Tarefa.atualizarTarefa(managedObjectContext)
+            
+            delegate?.atualizaTabelaLista()
         }
         
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
@@ -71,11 +75,17 @@ class ListaItensViewController: UITableViewController {
     //Deleta itens da tabela, com swipe para a esquerda
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         
-        itens.removeAtIndex(indexPath.row)
         
-        let indexPaths = [indexPath]
-        tableView.deleteRowsAtIndexPaths(indexPaths, withRowAnimation: .Automatic)
+        if editingStyle == UITableViewCellEditingStyle.Delete {
+        
+            let tarefaParaRemover = listaSelecionada?.tarefas![indexPath.row] as! Tarefa
+            Tarefa.excluir(tarefaParaRemover, daLista: listaSelecionada!, context: managedObjectContext)
+        }
+        
+       preencheTabela()
+       tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
     }
+    
     
     
     //MARK: Segue Function
@@ -84,10 +94,14 @@ class ListaItensViewController: UITableViewController {
             let navigationController = segue.destinationViewController as! UINavigationController
             let controller = navigationController.topViewController as! AdicionaTarefaViewController
             controller.delegate = self
+            controller.managedObjectContext = managedObjectContext
+            controller.listaSelecionada = self.listaSelecionada
+            
         } else if segue.identifier == "EditaItem" {
             let navigationController = segue.destinationViewController as! UINavigationController
             let controller = navigationController.topViewController as! AdicionaTarefaViewController
             controller.delegate = self
+            controller.managedObjectContext = managedObjectContext
             
             if let indexPath = tableView.indexPathForCell( sender as! UITableViewCell) {
                 controller.itemParaEditar = itens[indexPath.row]
@@ -112,7 +126,25 @@ class ListaItensViewController: UITableViewController {
         let label = cell.viewWithTag(1000) as! UILabel
         label.text = item.texto
     }
-
+    
+    func preencheTabela(){
+        
+        itens = [ItemLista]()
+        
+        if let lista = listaSelecionada,
+            let listaTarefa = Lista.retornaLista(managedObjectContext, doCodigo: lista.id)?.tarefas{
+            
+            for itemLista in listaTarefa{
+                
+                let tarefa = itemLista as! Tarefa
+                
+                let linha = ItemLista()
+                linha.texto = tarefa.texto
+                linha.checked = tarefa.concluido
+                itens.append(linha)
+            }
+        }
+    }
 }
 
 extension ListaItensViewController:AdicionaTarefaDelegate{
@@ -120,29 +152,32 @@ extension ListaItensViewController:AdicionaTarefaDelegate{
     //MARK: Delegate Function
     
     func adicionadoTarefa(controller: AdicionaTarefaViewController, doItemAdicionado item: ItemLista) {
-       
-        let indiceNovaLinha = itens.count
         
-        itens.append(item)
+        Tarefa.salvar(item, daLista: listaSelecionada!, context: managedObjectContext)
         
-        let indexPath = NSIndexPath(forRow: indiceNovaLinha, inSection: 0)
-        let indexPaths = [indexPath]
-        
-        tableView.insertRowsAtIndexPaths(indexPaths, withRowAnimation: .Automatic)
+        preencheTabela()
+        tableView.reloadData()
         dismissViewControllerAnimated(true, completion: nil)
     }
     
     
     
     func adicionadoTarefa(controller: AdicionaTarefaViewController, doItemEditado item: ItemLista) {
-        
+       
         if let index = itens.indexOf(item) {
             let indexPath = NSIndexPath(forRow: index, inSection: 0)
+        
+            let tarefa = listaSelecionada.tarefas![indexPath.row]
+            
+            tarefa.setValue(item.texto, forKey: "texto")
+            
+            Tarefa.atualizarTarefa(managedObjectContext)
+            
             if let cell = tableView.cellForRowAtIndexPath(indexPath) {
                 setTextForCell(cell, doItem: item)
             }
         }
-        dismissViewControllerAnimated(true, completion: nil)
         
+        dismissViewControllerAnimated(true, completion: nil)
     }
 }

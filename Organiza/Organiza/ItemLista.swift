@@ -13,12 +13,9 @@ class ItemLista:NSObject {
     
     var texto:String = ""
     var checked = false
-    var dataAviso:NSDate = NSDate()
-    var deveAvisar:Bool = false
     var codigoItem:Int8 = 0
-    
-
-    
+    var dataLembrete = NSDate()
+    var lembrete = false
     
     func mudarMarcaItem() {
         checked = !checked

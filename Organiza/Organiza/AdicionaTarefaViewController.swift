@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 protocol AdicionaTarefaDelegate: class {
     func adicionadoTarefa(controller: AdicionaTarefaViewController, doItemAdicionado item: ItemLista)
@@ -22,6 +23,9 @@ class AdicionaTarefaViewController: UITableViewController {
     
     weak var delegate:AdicionaTarefaDelegate?
     var itemParaEditar: ItemLista?
+    var managedObjectContext: NSManagedObjectContext!
+    var listaSelecionada: Lista?
+    
     
     var _calendarioVisivel: Bool!
     var _dataSelecionada : NSDate!
@@ -38,13 +42,14 @@ class AdicionaTarefaViewController: UITableViewController {
             _calendarioVisivel = false
             _dataSelecionada = item.dataAviso
             botaoAtivaAviso.on = item.deveAvisar
+            salvarBarButtonItem.title = "Salvar"
             
         } else {
             _calendarioVisivel = false
             _dataSelecionada = NSDate()
             botaoAtivaAviso.on = false
-            salvarBarButtonItem.enabled = false
         }
+        
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -62,30 +67,30 @@ class AdicionaTarefaViewController: UITableViewController {
                 item.dataAviso = _dataSelecionada
                 item.deveAvisar = botaoAtivaAviso.on
                 item.agendarNotificacao()
-                
+
                 view.endEditing(true)
-                
+
                 delegate.adicionadoTarefa(self, doItemEditado: item)
             }else{
                 let item = ItemLista()
                 item.texto = nomeTarefaTextField.text!
-                item.deveAvisar = botaoAtivaAviso.on
-                item.checked = false
-                item.dataAviso = _dataSelecionada
-                
+
+                item.dataLembrete = _dataSelecionada
+                item.lembrete = botaoAtivaAviso.on
+
                 view.endEditing(true)
-                
+
                 delegate.adicionadoTarefa(self, doItemAdicionado: item)
             }
         }
     }
-    
+
     @IBAction func cancelarTarefa() {
         dismissViewControllerAnimated(true, completion: nil)
     }
-    
+
     @IBAction func ativaDesativaAviso(botaoAviso: UISwitch) {
-        
+
         if (botaoAviso.on) {
             exibirCalendario()
             return
