@@ -53,14 +53,8 @@ class AdicionaTarefaViewController: UITableViewController {
             }else{
                 let item = ItemLista()
                 item.texto = nomeTarefaTextField.text!
-                //item.checked = false
                 item.dataLembrete = NSDate()
                 item.lembrete = true
-                
-                Tarefa.salvar(item, daLista: listaSelecionada!, context: managedObjectContext)
-                
-                //dismissViewControllerAnimated(true, completion: nil)
-                
                 
                 delegate.adicionadoTarefa(self, doItemAdicionado: item)
             }

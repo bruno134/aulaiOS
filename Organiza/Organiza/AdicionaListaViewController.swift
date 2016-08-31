@@ -33,6 +33,7 @@ class AdicionaListaViewController: UITableViewController {
             nomeTarefaTextField.text = listaTarefa.nomeLista
             adicionaBarButton.enabled = true
             nomeIcone = listaTarefa.nomeImagem
+            
         }
 
         iconeImageView.image = UIImage(named: nomeIcone)
@@ -48,6 +49,17 @@ class AdicionaListaViewController: UITableViewController {
         if let listaTarefa = listaParaEditar{
            listaTarefa.nomeLista = nomeTarefaTextField.text!
             listaTarefa.nomeImagem = nomeIcone
+            
+            let listaParaAtualizar = Lista.retornaLista(managedObjectContext, doCodigo: listaTarefa.id)
+            
+            if let _ = listaParaAtualizar{
+            
+                listaParaAtualizar!.nome = listaTarefa.nomeLista
+                listaParaAtualizar!.caminhoImagem = listaTarefa.nomeImagem
+                
+                Lista.atualizarLista(managedObjectContext)
+            }
+            
         }else{
            let novaListaTarefa = ListaTarefa()
             novaListaTarefa.nomeLista = nomeTarefaTextField.text!

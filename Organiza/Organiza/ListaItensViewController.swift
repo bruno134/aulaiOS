@@ -13,8 +13,8 @@ class ListaItensViewController: UITableViewController {
     
     var itens:[ItemLista] = []
     var managedObjectContext: NSManagedObjectContext!
-   
-    var listaSelecionada:Lista?
+    var delegate:ListaTarefasViewController?
+    var listaSelecionada:Lista!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,6 +58,14 @@ class ListaItensViewController: UITableViewController {
             
             
             marcarCelula(cell, item: item)
+            
+            let tarefa = listaSelecionada.tarefas![indexPath.row]
+        
+            tarefa.setValue(item.checked, forKey: "concluido")
+            
+            Tarefa.atualizarTarefa(managedObjectContext)
+            
+            delegate?.atualizaTabelaLista()
         }
         
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
@@ -145,6 +153,8 @@ extension ListaItensViewController:AdicionaTarefaDelegate{
     
     func adicionadoTarefa(controller: AdicionaTarefaViewController, doItemAdicionado item: ItemLista) {
         
+        Tarefa.salvar(item, daLista: listaSelecionada!, context: managedObjectContext)
+        
         preencheTabela()
         tableView.reloadData()
         dismissViewControllerAnimated(true, completion: nil)
@@ -153,15 +163,21 @@ extension ListaItensViewController:AdicionaTarefaDelegate{
     
     
     func adicionadoTarefa(controller: AdicionaTarefaViewController, doItemEditado item: ItemLista) {
-        
+       
         if let index = itens.indexOf(item) {
             let indexPath = NSIndexPath(forRow: index, inSection: 0)
+        
+            let tarefa = listaSelecionada.tarefas![indexPath.row]
+            
+            tarefa.setValue(item.texto, forKey: "texto")
+            
+            Tarefa.atualizarTarefa(managedObjectContext)
+            
             if let cell = tableView.cellForRowAtIndexPath(indexPath) {
                 setTextForCell(cell, doItem: item)
             }
         }
         
         dismissViewControllerAnimated(true, completion: nil)
-        
     }
 }

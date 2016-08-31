@@ -62,6 +62,8 @@ class Lista: NSManagedObject {
         
         let novaLista = NSEntityDescription.insertNewObjectForEntityForName("Lista", inManagedObjectContext: context) as! Lista
         
+        
+        
         novaLista.id = indiceListaTarefa + 1
         novaLista.nome = lista.nomeLista
         novaLista.tarefas = nil
@@ -78,6 +80,8 @@ class Lista: NSManagedObject {
     
     class func excluirLista(lista:Lista, context:NSManagedObjectContext){
         
+        
+        
         do{            
             context.deleteObject(lista)
             
@@ -88,6 +92,15 @@ class Lista: NSManagedObject {
         }
         
     }
-
+    
+    class func atualizarLista(context:NSManagedObjectContext){
+        
+        do{
+            try context.save()
+        }catch{
+            fatalCoreDataError(error)
+        }
+        
+    }
     
 }

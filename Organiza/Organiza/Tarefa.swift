@@ -55,6 +55,17 @@ class Tarefa: NSManagedObject {
         }
 
     }
+    
+    class func atualizarTarefa(context:NSManagedObjectContext){
+        
+        do{
+            try context.save()
+        }catch{
+            fatalCoreDataError(error)
+        }
+        
+    }
+    
 }
 
     

@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class ListaTarefasViewController: UITableViewController, UINavigationControllerDelegate {
+class ListaTarefasViewController: UITableViewController, UINavigationControllerDelegate{
 
     var managedObjectContext: NSManagedObjectContext!
     var listasTarefa = [Lista]()
@@ -17,9 +17,9 @@ class ListaTarefasViewController: UITableViewController, UINavigationControllerD
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         preencheTabela()
     }
+    
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
@@ -35,22 +35,28 @@ class ListaTarefasViewController: UITableViewController, UINavigationControllerD
         let cellIdentifier = "Cell"
         
         let lista = listasTarefa[indexPath.row]
+        let listaTarefa = ListaTarefa()
         
-        var celula: UITableViewCell!
-        
-        if let novaCelula = tableView.dequeueReusableCellWithIdentifier(cellIdentifier) {
-            
-            celula = novaCelula
-            
-        } else {
-            celula = UITableViewCell(style: .Subtitle, reuseIdentifier: cellIdentifier)
+        listaTarefa.id = lista.id
+        listaTarefa.nomeLista = lista.nome
+        if let _ = lista.caminhoImagem{
+            listaTarefa.nomeImagem = lista.caminhoImagem!
         }
+       
+        listaTarefa.tarefas = lista.tarefas
         
-        celula.textLabel?.text = lista.nome
-        celula.accessoryType = .DetailDisclosureButton
-        celula.imageView?.image = UIImage(named: lista.caminhoImagem!)
         
-        return celula
+        let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath)
+        
+        
+        cell.textLabel!.text = listaTarefa.nomeLista
+        cell.detailTextLabel!.text = listaTarefa.status
+        cell.imageView!.image = UIImage(named: listaTarefa.nomeImagem)
+        cell.imageView?.isAccessibilityElement = true
+        cell.imageView?.accessibilityLabel = listaTarefa.nomeImagem
+        cell.accessoryView?.isAccessibilityElement = true
+        cell.accessoryView?.accessibilityLabel = "editar"
+        return cell
         
     }
     
@@ -72,14 +78,24 @@ class ListaTarefasViewController: UITableViewController, UINavigationControllerD
             let controller = segue.destinationViewController as! ListaItensViewController
                 controller.managedObjectContext = managedObjectContext
                 controller.listaSelecionada = sender as! Lista!
+                controller.delegate  = self
             
         }else{
             
-        let navigation = segue.destinationViewController as! UINavigationController
-        let controller = navigation.viewControllers[0] as! AdicionaListaViewController
-        
-        controller.managedObjectContext = managedObjectContext
-        controller.delegate = self
+            let navigation = segue.destinationViewController as! UINavigationController
+            let controller = navigation.viewControllers[0] as! AdicionaListaViewController
+            
+            controller.managedObjectContext = managedObjectContext
+            controller.delegate = self
+            
+            let lista = sender as! Lista
+            let listaTarefa = ListaTarefa()
+            listaTarefa.id = lista.id
+            listaTarefa.nomeLista = lista.nome
+            listaTarefa.nomeImagem = lista.caminhoImagem!
+            
+            controller.listaParaEditar = listaTarefa
+                        
         }
         
     }
@@ -95,9 +111,19 @@ class ListaTarefasViewController: UITableViewController, UINavigationControllerD
         
     }
     
+    override func tableView(tableView: UITableView, accessoryButtonTappedForRowWithIndexPath indexPath: NSIndexPath)
+    {
+        
+        let listaSelecionada = listasTarefa[indexPath.row]
+        
+        print("lista selecionada \(listaSelecionada.nome)")
+        self.performSegueWithIdentifier("editaItem", sender: listaSelecionada)
+    }
+    
     func preencheTabela(){
         listasTarefa = Lista.retornaListas(managedObjectContext)
     }
+   
     
 }
 
@@ -107,5 +133,6 @@ extension ListaTarefasViewController: AdicionaListaViewControllerDelegate{
         listasTarefa = Lista.retornaListas(managedObjectContext)
         tableView.reloadData()
     }
+    
 
 }
