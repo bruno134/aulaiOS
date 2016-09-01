@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="0XV-CD-gB5">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="0XV-CD-gB5">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -23,7 +23,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" tag="1000" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m94-6p-jQs">
-                                            <rect key="frame" x="38" y="11" width="484" height="21"/>
+                                            <rect key="frame" x="40" y="0.0" width="484" height="21"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="21" id="DpR-iu-lHc"/>
                                                 <constraint firstAttribute="width" constant="484" id="ndc-he-38f"/>
@@ -42,15 +42,28 @@
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1lZ-z9-6gF">
+                                            <rect key="frame" x="40" y="22" width="201" height="21"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="21" id="3p7-nZ-Chp"/>
+                                                <constraint firstAttribute="width" constant="201" id="GOz-eL-Zi7"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                     <constraints>
+                                        <constraint firstItem="1lZ-z9-6gF" firstAttribute="leading" secondItem="Fe1-l8-24g" secondAttribute="trailing" constant="8" id="HHw-Hs-WQX"/>
                                         <constraint firstItem="Fe1-l8-24g" firstAttribute="leading" secondItem="I6V-Ok-dRW" secondAttribute="leading" constant="5" id="L6m-lO-AYC"/>
+                                        <constraint firstItem="1lZ-z9-6gF" firstAttribute="top" secondItem="m94-6p-jQs" secondAttribute="bottom" constant="1" id="Q0K-RT-eeF"/>
                                         <constraint firstAttribute="bottom" secondItem="Fe1-l8-24g" secondAttribute="bottom" constant="8" id="TOi-uE-kct"/>
-                                        <constraint firstItem="m94-6p-jQs" firstAttribute="leading" secondItem="Fe1-l8-24g" secondAttribute="trailing" constant="6" id="dbi-JK-XHo"/>
-                                        <constraint firstAttribute="bottom" secondItem="m94-6p-jQs" secondAttribute="bottom" constant="11" id="teg-zS-dIn"/>
+                                        <constraint firstItem="m94-6p-jQs" firstAttribute="leading" secondItem="Fe1-l8-24g" secondAttribute="trailing" constant="8" id="dbi-JK-XHo"/>
+                                        <constraint firstAttribute="bottom" secondItem="m94-6p-jQs" secondAttribute="bottom" constant="22" id="teg-zS-dIn"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="dataLembrete" destination="1lZ-z9-6gF" id="0uP-S7-btq"/>
                                     <outlet property="textoTarefaLabel" destination="m94-6p-jQs" id="WOe-OD-Wwv"/>
                                     <segue destination="G59-Pf-ltx" kind="presentation" identifier="EditaItem" trigger="accessoryAction" id="U6U-M5-ELD"/>
                                 </connections>

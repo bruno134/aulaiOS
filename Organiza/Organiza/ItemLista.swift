@@ -30,10 +30,10 @@ class ItemLista:NSObject {
             UIApplication.sharedApplication().cancelLocalNotification(existeNotificacao!)
         }
         
-        if (deveAvisar == true && dataAviso.compare(NSDate()) != NSComparisonResult.OrderedAscending) {
+        if (lembrete == true && dataLembrete.compare(NSDate()) != NSComparisonResult.OrderedAscending) {
         
             let notificacao = UILocalNotification()
-            notificacao.fireDate = self.dataAviso
+            notificacao.fireDate = self.dataLembrete
             notificacao.timeZone = NSTimeZone.defaultTimeZone()
             notificacao.alertBody = self.texto
             notificacao.soundName = UILocalNotificationDefaultSoundName
@@ -61,13 +61,13 @@ class ItemLista:NSObject {
     
     func fomatarDataParaTexto() -> String {
         
-        if (self.deveAvisar == true) {
+        if (self.lembrete == true) {
             
             let formatoData = NSDateFormatter()
             formatoData.dateStyle = NSDateFormatterStyle.MediumStyle
             formatoData.timeStyle = NSDateFormatterStyle.ShortStyle
             
-            return formatoData.stringFromDate(self.dataAviso)
+            return formatoData.stringFromDate(self.dataLembrete)
         }
         
         return "Não existe notificação agendada"

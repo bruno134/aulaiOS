@@ -8,7 +8,13 @@
 
 import Foundation
 
-
+var dataFormatada: NSDateFormatter = {
+    let formato = NSDateFormatter()
+    formato.dateStyle = NSDateFormatterStyle.MediumStyle
+    formato.timeStyle = NSDateFormatterStyle.ShortStyle
+    
+    return formato
+}()
 
 var indiceListaTarefa: Int {
     get {

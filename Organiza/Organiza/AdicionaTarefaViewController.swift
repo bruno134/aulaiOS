@@ -40,9 +40,10 @@ class AdicionaTarefaViewController: UITableViewController {
             nomeTarefaTextField.text = item.texto
             salvarBarButtonItem.enabled = true
             _calendarioVisivel = false
-            _dataSelecionada = item.dataAviso
-            botaoAtivaAviso.on = item.deveAvisar
+            _dataSelecionada = item.dataLembrete
+            botaoAtivaAviso.on = item.lembrete
             salvarBarButtonItem.title = "Salvar"
+            lblDataAviso.text = dataFormatada.stringFromDate(_dataSelecionada)
             
         } else {
             _calendarioVisivel = false
@@ -64,8 +65,8 @@ class AdicionaTarefaViewController: UITableViewController {
             
             if let item = itemParaEditar {
                 item.texto = nomeTarefaTextField.text!
-                item.dataAviso = _dataSelecionada
-                item.deveAvisar = botaoAtivaAviso.on
+                item.dataLembrete = _dataSelecionada
+                item.lembrete = botaoAtivaAviso.on
                 item.agendarNotificacao()
 
                 view.endEditing(true)
@@ -79,6 +80,8 @@ class AdicionaTarefaViewController: UITableViewController {
                 item.lembrete = botaoAtivaAviso.on
 
                 view.endEditing(true)
+                item.agendarNotificacao()
+
 
                 delegate.adicionadoTarefa(self, doItemAdicionado: item)
             }

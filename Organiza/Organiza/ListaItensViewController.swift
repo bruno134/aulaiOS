@@ -43,6 +43,11 @@ class ListaItensViewController: UITableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier("ItemListaCell", forIndexPath: indexPath) as! ItemListaCell
         
         cell.textoTarefaLabel.text = itens[indexPath.row].texto
+        print(itens[indexPath.row].lembrete)
+        
+//        if itens[indexPath.row].lembrete{
+             cell.dataLembrete.text = dataFormatada.stringFromDate(itens[indexPath.row].dataLembrete)
+//        }
         
         marcarCelula(cell, item: itens[indexPath.row])
         

@@ -27,7 +27,7 @@ class ListaTarefa:NSObject{
             if let _ = tarefas{
                 for t in tarefas!
                 {
-                    if !(t.concluido)
+                    if t.concluido == true
                     {
                         i += 1;
                     }
@@ -67,11 +67,11 @@ class ListaTarefa:NSObject{
             }
             else if quantidadeItens == quantidadeItensPendentes
             {
-                return "Não iniciado "
+                return "Concluído"
             }
             else if concluido
             {
-                return "Concluído"
+                return "Não iniciado "
             }
             else
             {
