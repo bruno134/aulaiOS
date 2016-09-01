@@ -43,7 +43,6 @@ class ListaItensViewController: UITableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier("ItemListaCell", forIndexPath: indexPath) as! ItemListaCell
         
         cell.textoTarefaLabel.text = itens[indexPath.row].texto
-        print(itens[indexPath.row].lembrete)
         
 //        if itens[indexPath.row].lembrete{
              cell.dataLembrete.text = dataFormatada.stringFromDate(itens[indexPath.row].dataLembrete)
@@ -143,10 +142,20 @@ class ListaItensViewController: UITableViewController {
                 
                 let tarefa = itemLista as! Tarefa
                 
+                print("preencher")
+                print(tarefa.dataLembrete)
+                print(tarefa.lembrete)
+                
                 let linha = ItemLista()
                 linha.texto = tarefa.texto
                 linha.checked = tarefa.concluido
+                linha.dataLembrete = tarefa.dataLembrete
+                linha.lembrete = tarefa.lembrete
                 itens.append(linha)
+                
+                print("preencher2")
+                print(linha.dataLembrete)
+                print(linha.lembrete)
             }
         }
     }

@@ -24,6 +24,9 @@ class Tarefa: NSManagedObject {
         
         let tarefas = lista.tarefas?.mutableCopy() as! NSMutableOrderedSet
         
+        print("salvar")
+        print(tarefa.dataLembrete)
+        
         tarefas.addObject(tarefa)
         
         lista.tarefas = tarefas.copy() as? NSOrderedSet
