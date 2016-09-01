@@ -11,5 +11,6 @@ import UIKit
 class ItemListaCell: UITableViewCell {
     
     
+    @IBOutlet weak var dataLembrete: UILabel!
     @IBOutlet weak var textoTarefaLabel: UILabel!
 }

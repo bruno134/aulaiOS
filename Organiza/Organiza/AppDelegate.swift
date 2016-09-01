@@ -7,15 +7,64 @@
 //
 
 import UIKit
+import CoreData
+
+
+let MyManagedObjectContextSaveFailNotification = "MyManagedObjectContextSaveDidFailNotification"
+
+func fatalCoreDataError(error: ErrorType) {
+    print("*** Fatal error: \(error)")
+    NSNotificationCenter.defaultCenter().postNotificationName(MyManagedObjectContextSaveFailNotification, object: nil)
+}
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    
+    lazy var managedObjectContext: NSManagedObjectContext = {
+        guard let modelURL = NSBundle.mainBundle().URLForResource("Model", withExtension: "momd") else {
+            fatalError("Could not find data model in app bundle")
+        }
+        
 
+        
+        guard let model = NSManagedObjectModel(contentsOfURL: modelURL) else {
+            fatalError("Error initializing model from: \(modelURL)")
+        }
+        
+        let urls = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)
+        let documentsDirectory = urls[0]
+        let storeURL = documentsDirectory.URLByAppendingPathComponent("DataStore.sqlite")
+        print(storeURL)
+        
+        do {
+            let coordinator = NSPersistentStoreCoordinator(managedObjectModel: model)
+            try coordinator.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: storeURL, options: nil)
+            
+            print(storeURL)
+            
+            let context = NSManagedObjectContext(concurrencyType: .MainQueueConcurrencyType)
+            context.persistentStoreCoordinator = coordinator
+            
+            return context
+        } catch {
+            fatalError("Error adding persistent store at \(storeURL): \(error)")
+        }
+    }()
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        //Verifica se o indice das listas esta zerado e atribui o valor 1.
+        ajustePrimeiroAcesso()
+        
+        let navigationController = window!.rootViewController as! UINavigationController
+        
+//        let controller = navigationController.viewControllers[0] as! ListaItensViewController;
+        
+         let controller = navigationController.viewControllers[0] as! ListaTarefasViewController;
+        
+        controller.managedObjectContext = managedObjectContext;
         return true
     }
 
